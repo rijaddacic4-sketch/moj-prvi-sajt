@@ -1,10 +1,846 @@
 <!DOCTYPE html>
-<html></html>
-<head></head>
-<title>Moj prvi sqjt.</title>
-<head></head>
-<body></body>
-<h1>Zdravo!</h1>
-<p>Ovo je moj prvi sajt</p>
-<body></body>
-<html></html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GOALZONE — Fudbal na jednom mjestu</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #07110d;
+    --card: #0d1c16;
+    --card2: #12251d;
+    --green: #39e58c;
+    --green2: #1fc875;
+    --white: #f5fff9;
+    --muted: #8da398;
+    --line: rgba(255,255,255,.08);
+    --red: #ff5d67;
+    --yellow: #ffd45c;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 80% 0%, rgba(57,229,140,.13), transparent 30%),
+        var(--bg);
+    color: var(--white);
+    min-height: 100vh;
+}
+
+button {
+    font-family: inherit;
+}
+
+.container {
+    width: min(1120px, 92%);
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,17,13,.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+}
+
+.nav {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--green);
+}
+
+.nav-links {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.nav-links a:hover {
+    color: var(--green);
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 25px;
+}
+
+/* HERO */
+
+.hero {
+    padding: 70px 0 45px;
+}
+
+.hero-box {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    padding: 55px;
+    background:
+        linear-gradient(120deg, #10281d, #07110d 70%);
+    border: 1px solid var(--line);
+}
+
+.hero-box::after {
+    content: "⚽";
+    position: absolute;
+    right: 30px;
+    bottom: -35px;
+    font-size: 190px;
+    opacity: .07;
+    transform: rotate(-15deg);
+}
+
+.badge {
+    display: inline-flex;
+    padding: 8px 13px;
+    border-radius: 100px;
+    background: rgba(57,229,140,.12);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    max-width: 700px;
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: .95;
+    letter-spacing: -4px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: var(--green);
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--green);
+    color: #06110b;
+}
+
+.btn-primary:hover {
+    background: #61efa4;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.06);
+    color: white;
+    border: 1px solid var(--line);
+}
+
+/* SECTION */
+
+.section {
+    padding: 28px 0;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-title h2 {
+    font-size: 23px;
+}
+
+.section-title span {
+    color: var(--green);
+    font-size: 13px;
+}
+
+/* MATCHES */
+
+.matches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.match {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+    transition: .25s;
+}
+
+.match:hover {
+    transform: translateY(-4px);
+    border-color: rgba(57,229,140,.3);
+}
+
+.league {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.match-time {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 13px 0;
+}
+
+.team-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.team-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--card2);
+}
+
+.score {
+    font-weight: 900;
+}
+
+.match-footer {
+    border-top: 1px solid var(--line);
+    padding-top: 13px;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* NEWS */
+
+.news {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 14px;
+}
+
+.news-card {
+    min-height: 240px;
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--line);
+}
+
+.news-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 25%, rgba(0,0,0,.9));
+}
+
+.news-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.news-card.big {
+    min-height: 330px;
+    background:
+        radial-gradient(circle at 70% 20%, #2b9862, transparent 30%),
+        linear-gradient(145deg, #183d2b, #08130e);
+}
+
+.news-card.small-one {
+    background:
+        radial-gradient(circle at 80% 20%, #345a9a, transparent 35%),
+        linear-gradient(145deg, #182744, #081016);
+}
+
+.news-card.small-two {
+    background:
+        radial-gradient(circle at 80% 20%, #9a682f, transparent 35%),
+        linear-gradient(145deg, #3d2916, #120d08);
+}
+
+.category {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+}
+
+.news-card h3 {
+    font-size: 22px;
+    line-height: 1.15;
+}
+
+.news-card p {
+    color: #aebdb5;
+    font-size: 12px;
+    margin-top: 9px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    padding: 20px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-value {
+    font-size: 27px;
+    font-weight: 900;
+    margin-top: 8px;
+}
+
+.stat-value.green {
+    color: var(--green);
+}
+
+/* TABLE */
+
+.table-box {
+    overflow-x: auto;
+    background: var(--card);
+    border-radius: 18px;
+    border: 1px solid var(--line);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+}
+
+th {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+td:first-child {
+    font-weight: 900;
+}
+
+.position {
+    color: var(--muted);
+    width: 40px;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 70px;
+    padding: 35px 0 100px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-logo {
+    color: white;
+    font-weight: 900;
+}
+
+.footer-logo span {
+    color: var(--green);
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero {
+        padding: 28px 0;
+    }
+
+    .hero-box {
+        padding: 32px 24px;
+        border-radius: 22px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        letter-spacing: -2px;
+    }
+
+    .hero-box::after {
+        font-size: 120px;
+    }
+
+    .matches {
+        grid-template-columns: 1fr;
+    }
+
+    .news {
+        grid-template-columns: 1fr;
+    }
+
+    .news-card.big,
+    .news-card {
+        min-height: 240px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-inner {
+        flex-direction: column;
+    }
+}
+
+/* SMALL PHONE */
+
+@media (max-width: 430px) {
+
+    .container {
+        width: 94%;
+    }
+
+    .hero h1 {
+        font-size: 41px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+
+        <div class="logo">
+            GOAL<span>ZONE</span> ⚽
+        </div>
+
+        <nav class="nav-links">
+            <a href="#home">Početna</a>
+            <a href="#matches">Utakmice</a>
+            <a href="#news">Novosti</a>
+            <a href="#table">Tabela</a>
+        </nav>
+
+        <button class="menu-btn">☰</button>
+
+    </div>
+</header>
+
+
+<main id="home">
+
+<section class="hero">
+<div class="container">
+
+    <div class="hero-box">
+
+        <div class="badge">⚡ FOOTBALL • NEWS • SCORES</div>
+
+        <h1>
+            Sve što voliš u<br>
+            <span>jednoj igri.</span>
+        </h1>
+
+        <p>
+            Dobrodošao na GOALZONE — mjesto za fudbalske
+            vijesti, utakmice, statistiku i ono što se trenutno
+            dešava na terenu.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="btn btn-primary"
+                    onclick="scrollToMatches()">
+                ⚽ Pogledaj utakmice
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="scrollToNews()">
+                📰 Najnovije vijesti
+            </button>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<section class="section" id="matches">
+<div class="container">
+
+    <div class="section-title">
+        <h2>🔥 Utakmice</h2>
+        <span>Danas</span>
+    </div>
+
+    <div class="matches">
+
+        <div class="match">
+            <div class="league">Premier League</div>
+            <div class="match-time">18:30</div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">🔴</div>
+                    Arsenal
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">🔵</div>
+                    Chelsea
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="match-footer">
+                London • Premier League
+            </div>
+        </div>
+
+
+        <div class="match">
+            <div class="league">La Liga</div>
+            <div class="match-time">21:00</div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">🔵🔴</div>
+                    Barcelona
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">⚪</div>
+                    Real Madrid
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="match-footer">
+                Spain • La Liga
+            </div>
+        </div>
+
+
+        <div class="match">
+            <div class="league">Serie A</div>
+            <div class="match-time">20:45</div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">⚫</div>
+                    Juventus
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="team">
+                <div class="team-name">
+                    <div class="team-icon">🔵⚫</div>
+                    Inter
+                </div>
+                <div class="score">-</div>
+            </div>
+
+            <div class="match-footer">
+                Italy • Serie A
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<section class="section" id="news">
+<div class="container">
+
+    <div class="section-title">
+        <h2>📰 Najnovije</h2>
+        <span>GOALZONE</span>
+    </div>
+
+    <div class="news">
+
+        <article class="news-card big">
+            <div class="category">Fudbal</div>
+            <h3>Nova sezona donosi velike okršaje i još veće priče.</h3>
+            <p>
+                Sve na jednom mjestu — utakmice, igrači i najvažniji momenti.
+            </p>
+        </article>
+
+        <article class="news-card small-one">
+            <div class="category">Transferi</div>
+            <h3>Ko bi mogao biti sljedeći veliki transfer?</h3>
+            <p>Transfer tržište nikad ne miruje.</p>
+        </article>
+
+        <article class="news-card small-two">
+            <div class="category">Statistika</div>
+            <h3>Brojevi koji mijenjaju utakmicu.</h3>
+            <p>Golovi, asistencije i forma.</p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+
+<section class="section">
+<div class="container">
+
+    <div class="section-title">
+        <h2>📊 Brza statistika</h2>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-label">Utakmice danas</div>
+            <div class="stat-value green">24</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Golovi</div>
+            <div class="stat-value">67</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Aktivne lige</div>
+            <div class="stat-value">12</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">GOALZONE</div>
+            <div class="stat-value">01</div>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<section class="section" id="table">
+<div class="container">
+
+    <div class="section-title">
+        <h2>🏆 Tabela</h2>
+        <span>Primjer</span>
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Klub</th>
+                    <th>U</th>
+                    <th>P</th>
+                    <th>Bodovi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td class="position">1</td>
+                    <td>Arsenal</td>
+                    <td>10</td>
+                    <td>8</td>
+                    <td>24</td>
+                </tr>
+
+                <tr>
+                    <td class="position">2</td>
+                    <td>Liverpool</td>
+                    <td>10</td>
+                    <td>7</td>
+                    <td>22</td>
+                </tr>
+
+                <tr>
+                    <td class="position">3</td>
+                    <td>Manchester City</td>
+                    <td>10</td>
+                    <td>7</td>
+                    <td>21</td>
+                </tr>
+
+                <tr>
+                    <td class="position">4</td>
+                    <td>Chelsea</td>
+                    <td>10</td>
+                    <td>6</td>
+                    <td>19</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+</section>
+
+</main>
+
+
+<footer>
+<div class="container footer-inner">
+
+    <div>
+        <div class="footer-logo">
+            GOAL<span>ZONE</span> ⚽
+        </div>
+
+        <p style="margin-top:8px;">
+            Fudbal. Statistika. Strast.
+        </p>
+    </div>
+
+    <div>
+        © 2026 GOALZONE
+    </div>
+
+</div>
+</footer>
+
+
+<script>
+
+function scrollToMatches() {
+    document.getElementById("matches")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+function scrollToNews() {
+    document.getElementById("news")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+</script>
+
+</body>
+</html>
